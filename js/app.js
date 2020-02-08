@@ -4,6 +4,7 @@
 */
 /* GLOBAL VARIABLES */
 const screens = []
+var score = 0
 
 /* FUNCTIONS */
 const loadScreens = () => {
@@ -27,6 +28,7 @@ const displayGame = (event) => {
     screens[0].classList.add('hidden')
     screens[2].classList.add('hidden')
     screens[1].classList.toggle('hidden')
+    startGame()
 }
 const displaySettings = () => {
     console.log("settings page")
@@ -46,5 +48,14 @@ const assignButtonListeners = () => {
     buttons[2].addEventListener("click",displaySplash)
     buttons[3].addEventListener("click",displaySplash)
 }
+const startGame = () => {
+    
+}
+const updateScore = () => {
+    score++
+    document.querySelector('.score').textContent = score
+}
+
+/* GAME LOGIC*/
 loadScreens()
 assignButtonListeners()
