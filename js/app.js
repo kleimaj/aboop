@@ -11,17 +11,18 @@ let bubble_container = {
     width: screen.width,
     height: screen.height
 }
+console.log(bubble_container.width,bubble_container.height)
 
 /* CLASSES */
 class Bubble {
-    constructor(x=15,y=15) {
+    constructor(x=15,y=15) { //max screenWidth - 100 //max screenHeight - 100
         this.x = x
         this.y = y
         // let coords = this.generateRandomPos()
         // this.x = coords[0]
         // this.y = coords[1]
-        this.xV = 5 // 5 pixels/ms
-        this. yV = 5
+        this.xV = 5 * (Math.round(Math.random()) * 2 - 1)        // 5 pixels/function call
+        this. yV = 5 * (Math.round(Math.random()) * 2 - 1)
         this.width = '50px'
         this.height = '50px'
         this.borderRadius = '50%'
@@ -32,7 +33,7 @@ class Bubble {
         this.element = document.createElement('div')
         this.appear()
         // this.move()
-        setInterval(this.move.bind(this), 50)
+        setInterval(this.move.bind(this), 100)
        
     }
     move() {
@@ -83,6 +84,11 @@ class Bubble {
     appear() {
         this.element.classList.add('bubble')
         this.element.addEventListener("click",pop)
+
+        //set initial position
+        this.element.style.marginTop = this.y+"px"
+        this.element.style.marginLeft = this.x+"px"
+
         //place bubble on screen
         // this.element.style.margin="15px"
         //append child to bubble_container
@@ -136,6 +142,8 @@ const assignButtonListeners = () => {
 const startGame = () => {
     //create a bubble
     const bubble = new Bubble()
+    // const bubble2 = new Bubble(75,75)
+
     // bubble.move()
     // bubble.appear()
     // const bubble = document.createElement('div')
