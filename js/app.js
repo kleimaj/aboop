@@ -15,11 +15,11 @@ let bubble_container = {
 /* CLASSES */
 class Bubble {
     constructor(x=15,y=15) { //max screenWidth - 100 //max screenHeight - 100
-        this.x = x
-        this.y = y
-        // let coords = this.generateRandomPos()
-        // this.x = coords[0]
-        // this.y = coords[1]
+        // this.x = x
+        // this.y = y
+        let coords = this.generateRandomPos()
+        this.x = coords[0]
+        this.y = coords[1]
         this.xV = 5 * (Math.round(Math.random()) * 2 - 1)        // 5 pixels/function call
         this. yV = 5 * (Math.round(Math.random()) * 2 - 1)
 
@@ -89,8 +89,9 @@ class Bubble {
         return [this.x,this.y]
     }
     generateRandomPos() {
-        let x = Math.floor(Math.random()*bubble_container.width)*5
-        let y = Math.floor(Math.random()*bubble_container.height)*5
+        let x = Math.abs(Math.floor(Math.random()*bubble_container.width)-80)
+        let y = Math.abs(Math.floor(Math.random()*bubble_container.height)-80)
+        console.log(x,y)
 
         return [x,y]
 
