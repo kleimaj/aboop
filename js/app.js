@@ -133,6 +133,10 @@ const displaySplash = (event) => {
     screens[1].classList.add('hidden')
     screens[2].classList.add('hidden')
     console.log('splash page')
+    const myNode = document.querySelector(".bubble_container");
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
 }
 const displayGame = (event) => {
     console.log("game page")
