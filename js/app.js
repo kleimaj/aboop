@@ -17,6 +17,9 @@ class Bubble {
     constructor(x=15,y=15) {
         this.x = x
         this.y = y
+        // let coords = this.generateRandomPos()
+        // this.x = coords[0]
+        // this.y = coords[1]
         this.xV = 5 // 5 pixels/ms
         this. yV = 5
         this.width = '50px'
@@ -64,6 +67,13 @@ class Bubble {
     }
     getPos() {
         return [this.x,this.y]
+    }
+    generateRandomPos() {
+        let x = Math.floor(Math.random()*bubble_container.width)*5
+        let y = Math.floor(Math.random()*bubble_container.height)*5
+
+        return [x,y]
+
     }
     // collide() { //collision detection
     //     if (this.x == bubble_container.width-5 || this.x == 0) {
