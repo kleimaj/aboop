@@ -31,6 +31,8 @@ class Bubble {
 
         //create div element and make appear
         this.element = document.createElement('div')
+        this.child = document.createElement('div')
+
         this.appear()
         // this.move()
         setInterval(this.move.bind(this), 100)
@@ -38,12 +40,20 @@ class Bubble {
     }
     move() {
         // y position
+        this.width = 45
+        this.child.style.width=this.width+"px"
+        this.height = 45
+        this.child.style.height=this.height+"px"
         if (this.y >= bubble_container.height-50) {
-            this.yV *= -1
             //change velocity
+            this.yV *= -1
+            this.height -= 10
+            this.child.style.width=this.height+"px"
         }
         else if (this.y <= -5) {
             this.yV *= -1
+            this.height -= 10
+            this.child.style.width=this.height+"px"
         }
         this.y += this.yV
         this.element.style.top = this.y+"px"
@@ -51,9 +61,18 @@ class Bubble {
         //x position
         if (this.x >= bubble_container.width-50) {
             this.xV *= -1
+            this.width -= 10
+            this.child.style.width=this.width+"px"
+            // this.height += 15
+            // this.child.style.height=this.height+"px"
         }
         else if (this.x <= -10) {
             this.xV *= -1
+            this.width -= 10
+            this.child.style.width=this.width+"px"
+            // this.height += 15
+            // this.child.style.height=this.height+"px"
+
         }
 
         this.x += this.xV
@@ -84,6 +103,7 @@ class Bubble {
     appear() {
         this.element.classList.add('bubble')
         this.element.addEventListener("click",pop)
+        this.child.classList.add('bubble_child')
 
         //set initial position
         this.element.style.top = this.y+"px"
@@ -93,6 +113,7 @@ class Bubble {
         // this.element.style.margin="15px"
         //append child to bubble_container
         document.querySelector('.bubble_container').appendChild(this.element)
+        this.element.appendChild(this.child)
 
     }
 }
@@ -164,7 +185,7 @@ const startGame = () => {
 }
 const pop = (event) => {
     updateScore()
-    document.querySelector('.bubble_container').removeChild(event.target)
+    document.querySelector('.bubble_container').removeChild(event.currentTarget)
 }
 const updateScore = () => {
     score++
