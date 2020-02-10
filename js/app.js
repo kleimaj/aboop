@@ -17,27 +17,50 @@ class Bubble {
     constructor(x=15,y=15) {
         this.x = x
         this.y = y
-        this.xV = 1
-        this. yV = 1
+        this.xV = 5 // 5 pixels/ms
+        this. yV = 5
         this.width = '50px'
         this.height = '50px'
         this.borderRadius = '50%'
+
+        this.serpentine = 0;
 
         //create div element and make appear
         this.element = document.createElement('div')
         this.appear()
         // this.move()
-        const self = this
-        setInterval(this.move.bind(this), 100)
+        setInterval(this.move.bind(this), 50)
        
     }
     move() {
-        this.x += 5
-        console.log(this)
-        this.y += 5
-        console.log(this.element)
+        // y position
+        if (this.y >= bubble_container.height-80) {
+            this.yV *= -1
+            //change velocity
+        }
+        else if (this.y <= -40) {
+            this.yV *= -1
+        }
+        this.y += this.yV
         this.element.style.marginTop = this.y+"px"
-        setTimeout(this.move, 2000);
+
+        //x position
+        if (this.x >= bubble_container.width-50) {
+            this.xV *= -1
+        }
+        else if (this.x <= -10) {
+            this.xV *= -1
+        }
+
+        this.x += this.xV
+        this.element.style.marginLeft = this.x+"px"
+
+
+        // if (this.serpentine == 50) {
+        //     this.serpentine = 0
+        //     this.xV *= -1
+        // }
+        // this.serpentine++
     }
     getPos() {
         return [this.x,this.y]
@@ -51,7 +74,7 @@ class Bubble {
         this.element.classList.add('bubble')
         this.element.addEventListener("click",pop)
         //place bubble on screen
-        this.element.style.margin="15px"
+        // this.element.style.margin="15px"
         //append child to bubble_container
         document.querySelector('.bubble_container').appendChild(this.element)
 
