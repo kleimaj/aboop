@@ -1,8 +1,13 @@
 .hidden {
     display: none;
 }
+.bubble_container {
+    width: 100vw;
+    height: 100vh;
+}
 .bubble {
-    display:inline-block;
+    /* display:inline-block; */
+    position: absolute;
     /* background-color: aquamarine; */
     width: 50px;
     height: 50px;

@@ -11,7 +11,6 @@ let bubble_container = {
     width: screen.width,
     height: screen.height
 }
-console.log(bubble_container.width,bubble_container.height)
 
 /* CLASSES */
 class Bubble {
@@ -23,8 +22,9 @@ class Bubble {
         // this.y = coords[1]
         this.xV = 5 * (Math.round(Math.random()) * 2 - 1)        // 5 pixels/function call
         this. yV = 5 * (Math.round(Math.random()) * 2 - 1)
-        this.width = '50px'
-        this.height = '50px'
+
+        this.width = 50 //default width and height
+        this.height = 50
         this.borderRadius = '50%'
 
         this.serpentine = 0;
@@ -38,15 +38,15 @@ class Bubble {
     }
     move() {
         // y position
-        if (this.y >= bubble_container.height-80) {
+        if (this.y >= bubble_container.height-50) {
             this.yV *= -1
             //change velocity
         }
-        else if (this.y <= -40) {
+        else if (this.y <= -5) {
             this.yV *= -1
         }
         this.y += this.yV
-        this.element.style.marginTop = this.y+"px"
+        this.element.style.top = this.y+"px"
 
         //x position
         if (this.x >= bubble_container.width-50) {
@@ -57,7 +57,7 @@ class Bubble {
         }
 
         this.x += this.xV
-        this.element.style.marginLeft = this.x+"px"
+        this.element.style.left = this.x+"px"
 
 
         // if (this.serpentine == 50) {
@@ -86,8 +86,8 @@ class Bubble {
         this.element.addEventListener("click",pop)
 
         //set initial position
-        this.element.style.marginTop = this.y+"px"
-        this.element.style.marginLeft = this.x+"px"
+        this.element.style.top = this.y+"px"
+        this.element.style.left = this.x+"px"
 
         //place bubble on screen
         // this.element.style.margin="15px"
@@ -126,6 +126,10 @@ const displaySettings = () => {
     screens[0].classList.toggle('hidden')
     screens[2].classList.toggle('hidden')
 }
+const changeContainerSize = () => {
+    bubble_container.width = screen.width
+    bubble_container.height = screen.height
+}
 const assignButtonListeners = () => {
     let buttons = document.querySelectorAll("button")
     //start_button
@@ -139,10 +143,16 @@ const assignButtonListeners = () => {
     buttons[2].addEventListener("click",displaySplash)
     buttons[3].addEventListener("click",displaySplash)
 }
+const assignWindowListener = () => {
+    // let window = document.querySelector('window')
+    window.addEventListener('resize', changeContainerSize);
+    console.log(bubble_container.width,bubble_container.height)
+
+}
 const startGame = () => {
     //create a bubble
     const bubble = new Bubble()
-    // const bubble2 = new Bubble(75,75)
+    // const bubble2 = new Bubble(75,25)
 
     // bubble.move()
     // bubble.appear()
@@ -164,6 +174,6 @@ const updateScore = () => {
 /* GAME LOGIC*/
 loadScreens()
 assignButtonListeners()
-
+assignWindowListener()
 //for testing
 displayGame()
