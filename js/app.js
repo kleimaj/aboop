@@ -36,7 +36,6 @@ class Bubble {
         this.child.classList.add('grow')
         // this.move()
         this.collision = false
-        this.wallHit = false
         setInterval(this.move.bind(this), 100)
         this.child.classList.remove('grow')
         bubbles.push(this)
@@ -155,8 +154,18 @@ class Bubble {
         let x = Math.abs(Math.floor(Math.random()*bubble_container.width)-80)
         let y = Math.abs(Math.floor(Math.random()*bubble_container.height)-80)
         // console.log(x,y)
+        // for (let i = 0; i < bubbles.length; i++) {
+        //     //check if coordinates collide
+        //     let other = bubbles[i]
+        //     if () {
 
-        return [x,y]
+        //     }
+        //     else {
+        //         return this.generateRandomPos()
+        //     }
+        // }
+
+        // return [x,y]
 
     }
     // collide() { //collision detection
