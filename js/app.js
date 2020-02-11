@@ -36,6 +36,7 @@ class Bubble {
         this.child.classList.add('grow')
         // this.move()
         this.collision = false
+        this.wallHit = false
         setInterval(this.move.bind(this), 100)
         this.child.classList.remove('grow')
         bubbles.push(this)
@@ -67,16 +68,14 @@ class Bubble {
             this.xV *= -1
             this.width -= 10
             this.child.style.width=this.width+"px"
-            // this.height += 15
-            // this.child.style.height=this.height+"px"
         }
         else if (this.x <= -10) {
             this.xV *= -1
             this.width -= 10
             this.child.style.width=this.width+"px"
             // this.height += 15
+            
             // this.child.style.height=this.height+"px"
-
         }
 
         //check other bubbles
@@ -96,11 +95,6 @@ class Bubble {
             this.element.style.top = this.y+"px"
         }
         
-        // if (this.serpentine == 50) {
-        //     this.serpentine = 0
-        //     this.xV *= -1
-        // }
-        // this.serpentine++
     }
     compareOthers() {
         let ret = false
@@ -126,6 +120,8 @@ class Bubble {
 
                         this.width -= 10
                         this.child.style.width=this.width+"px"
+                        other.width -= 10
+                        other.child.style.width=other.width+"px"
                         ret = true
                     }
                     else if ((this.x < other.x && (this.x+40) > other.x) && (this.y < (other.y+40) && (this.y+40) > other.y)) {
@@ -142,6 +138,8 @@ class Bubble {
                         other.collision=true
                         this.width -= 10
                         this.child.style.width=this.width+"px"
+                        other.width -= 10
+                        other.child.style.width=other.width+"px"
                         ret = true
                     }
                 }
@@ -261,6 +259,8 @@ const startGame = () => {
 const pop = (event) => {
     updateScore()
     document.querySelector('.bubble_container').removeChild(event.currentTarget)
+    //remove from bubbles array
+    bubbles.splice(bubbles.indexOf(event.currentTarget),1)
 }
 const updateScore = () => {
     score++
