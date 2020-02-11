@@ -11,6 +11,7 @@ let bubble_container = {
     width: screen.width,
     height: screen.height
 }
+let bubbles = []
 
 /* CLASSES */
 class Bubble {
@@ -21,21 +22,26 @@ class Bubble {
         this.x = coords[0]
         this.y = coords[1]
         this.xV = 5 * (Math.round(Math.random()) * 2 - 1)        // 5 pixels/function call
-        this. yV = 5 * (Math.round(Math.random()) * 2 - 1)
+        this.yV = 5 * (Math.round(Math.random()) * 2 - 1)
 
-        this.width = 50 //default width and height
-        this.height = 50
+        this.width = 5 //default width and height
+        this.height = 5
         this.borderRadius = '50%'
-
-        this.serpentine = 0;
 
         //create div element and make appear
         this.element = document.createElement('div')
         this.child = document.createElement('div')
 
         this.appear()
+        this.child.classList.add('grow')
         // this.move()
+        this.collision = false
         setInterval(this.move.bind(this), 100)
+        this.child.classList.remove('grow')
+        bubbles.push(this)
+
+        // console.log(bubbles)
+        // console.log(this===bubbles[0])
        
     }
     move() {
@@ -55,8 +61,6 @@ class Bubble {
             this.height -= 10
             this.child.style.width=this.height+"px"
         }
-        this.y += this.yV
-        this.element.style.top = this.y+"px"
 
         //x position
         if (this.x >= bubble_container.width-50) {
@@ -75,15 +79,71 @@ class Bubble {
 
         }
 
-        this.x += this.xV
-        this.element.style.left = this.x+"px"
-
-
+        //check other bubbles
+        if (!this.collision) {
+            if (!this.compareOthers()) {
+            this.x += this.xV
+            this.element.style.left = this.x+"px"
+            this.y += this.yV
+            this.element.style.top = this.y+"px"
+            }
+        }
+        else {
+            this.collision=false
+            this.x += this.xV
+            this.element.style.left = this.x+"px"
+            this.y += this.yV
+            this.element.style.top = this.y+"px"
+        }
+        
         // if (this.serpentine == 50) {
         //     this.serpentine = 0
         //     this.xV *= -1
         // }
         // this.serpentine++
+    }
+    compareOthers() {
+        let ret = false
+        for (let i = 0; i < bubbles.length; i++) {
+            if (bubbles[i] !== this) {
+                //compare sides of bubble containers
+                let other = bubbles[i]
+                if (other.collision === false) {
+                    //if this right intersects other.left
+                    //change xV
+                    if ((((this.y+50) > other.y) && (this.y < other.y)) && (this.x < (other.x+50) && (this.x+50) > other.x)) {
+                        console.log('vertical collision detected')
+                        this.yV *= -1
+                        other.yV *= -1
+                        this.xV *= -1
+                        other.xV *= -1
+                        this.x += this.xV
+                        this.element.style.left = this.x+"px"
+                        this.y += this.yV
+                        this.element.style.top = this.y+"px"
+                        this.collision = true
+                        other.collision = true
+                        ret = true
+                    }
+                    else if ((this.x < other.x && (this.x+50) > other.x) && (this.y < (other.y+50) && (this.y+50) > other.y)) {
+                        console.log('horizontal collision detected')
+                        this.xV *= -1
+                        other.xV *=-1
+                        this.yV *= -1
+                        other.yV *= -1
+                        this.x += this.xV
+                        this.element.style.left = this.x+"px"
+                        this.y += this.yV
+                        this.element.style.top = this.y+"px"
+                        this.collision= true
+                        other.collision=true
+                        ret = true
+                    }
+                }
+                
+            }
+        }
+        return ret
     }
     getPos() {
         return [this.x,this.y]
@@ -91,7 +151,7 @@ class Bubble {
     generateRandomPos() {
         let x = Math.abs(Math.floor(Math.random()*bubble_container.width)-80)
         let y = Math.abs(Math.floor(Math.random()*bubble_container.height)-80)
-        console.log(x,y)
+        // console.log(x,y)
 
         return [x,y]
 
@@ -110,12 +170,16 @@ class Bubble {
         this.element.style.top = this.y+"px"
         this.element.style.left = this.x+"px"
 
+        this.child.style.width = this.width+"px"
+        this.child.style.height = this.height+"px"
+
         //place bubble on screen
         // this.element.style.margin="15px"
         //append child to bubble_container
         document.querySelector('.bubble_container').appendChild(this.element)
         this.element.appendChild(this.child)
 
+        // change the dimensions (h & w) of the child element
     }
 }
 
@@ -145,6 +209,7 @@ const displayGame = (event) => {
     screens[0].classList.add('hidden')
     screens[2].classList.add('hidden')
     screens[1].classList.toggle('hidden')
+    // setTimeout(startGame,2000)
     startGame()
 }
 const displaySettings = () => {
@@ -175,18 +240,18 @@ const assignWindowListener = () => {
     console.log(bubble_container.width,bubble_container.height)
 
 }
+const createBubble = () => {
+    new Bubble()
+    //new Bubble(75,25)
+}
 const startGame = () => {
     //create a bubble
-    const bubble = new Bubble()
-    // const bubble2 = new Bubble(75,25)
+    createBubble()
+    createBubble()
+    createBubble()
+    createBubble()
+    createBubble()
 
-    // bubble.move()
-    // bubble.appear()
-    // const bubble = document.createElement('div')
-    // bubble.classList.add('bubble')
-    // bubble.addEventListener("click",pop)
-    // //append child to bubble_container
-    // document.querySelector('.bubble_container').appendChild(bubble)
 }
 const pop = (event) => {
     updateScore()
