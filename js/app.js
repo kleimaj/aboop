@@ -54,12 +54,12 @@ class Bubble {
             //change velocity
             this.yV *= -1
             this.height -= 10
-            this.child.style.width=this.height+"px"
+            this.child.style.height=this.height+"px"
         }
         else if (this.y <= -5) {
             this.yV *= -1
             this.height -= 10
-            this.child.style.width=this.height+"px"
+            this.child.style.height=this.height+"px"
         }
 
         //x position
@@ -111,7 +111,7 @@ class Bubble {
                 if (other.collision === false) {
                     //if this right intersects other.left
                     //change xV
-                    if ((((this.y+50) > other.y) && (this.y < other.y)) && (this.x < (other.x+50) && (this.x+50) > other.x)) {
+                    if ((((this.y+40) > other.y) && (this.y < other.y)) && (this.x < (other.x+40) && (this.x+40) > other.x)) {
                         console.log('vertical collision detected')
                         this.yV *= -1
                         other.yV *= -1
@@ -123,9 +123,12 @@ class Bubble {
                         this.element.style.top = this.y+"px"
                         this.collision = true
                         other.collision = true
+
+                        this.width -= 10
+                        this.child.style.width=this.width+"px"
                         ret = true
                     }
-                    else if ((this.x < other.x && (this.x+50) > other.x) && (this.y < (other.y+50) && (this.y+50) > other.y)) {
+                    else if ((this.x < other.x && (this.x+40) > other.x) && (this.y < (other.y+40) && (this.y+40) > other.y)) {
                         console.log('horizontal collision detected')
                         this.xV *= -1
                         other.xV *=-1
@@ -137,6 +140,8 @@ class Bubble {
                         this.element.style.top = this.y+"px"
                         this.collision= true
                         other.collision=true
+                        this.width -= 10
+                        this.child.style.width=this.width+"px"
                         ret = true
                     }
                 }
