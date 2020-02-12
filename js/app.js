@@ -46,10 +46,6 @@ class Bubble {
         this.collision = false
 
         this.moveInterval = setInterval(this.move.bind(this), 100)
-        console.log(this.moveInterval)
-        // bubble_intervals.push(this.moveInterval)
-        // this.idx = bubble_idx
-        // bubble_idx++
         this.element.setAttribute('data',this.moveInterval)
 
         this.child.classList.remove('grow')
@@ -207,7 +203,7 @@ class Bubble {
     // }
     appear() {
         this.element.classList.add('bubble')
-        this.element.addEventListener("click",pop)
+        this.child.addEventListener("click",pop)
         this.child.classList.add('bubble_child')
 
         //set initial position
@@ -308,8 +304,8 @@ const startGame = () => {
 const pop = (event) => {
 
     updateScore()
-    clearInterval(event.currentTarget.getAttribute('data')) //stop bubble
-    let keylines = event.currentTarget.querySelectorAll('.keyline')
+    clearInterval(event.target.parentElement.getAttribute('data')) //stop bubble
+    let keylines = event.target.parentElement.querySelectorAll('.keyline')
     let circle = event.target
     setTimeout(function() {
         keylines.forEach(function(keyline) {    
@@ -326,14 +322,13 @@ const pop = (event) => {
         })
     },200)
     let container = document.querySelector('.bubble_container')
-    let target = event.currentTarget
+    let target = event.target.parentElement
     setTimeout(function() {
         container.removeChild(target)
     },400)
-    console.log(event.currentTarget)
     // document.querySelector('.bubble_container').removeChild(event.currentTarget)
     //remove from bubbles array
-    bubbles.splice(bubbles.indexOf(event.currentTarget),1)
+    bubbles.splice(bubbles.indexOf(event.target.parentElement),1)
     num_bubbles--
     interval = setInterval(createBubble,1000)
 }
