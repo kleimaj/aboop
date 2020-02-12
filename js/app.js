@@ -263,6 +263,24 @@ const displaySplash = (event) => {
     // event.target.classList.toggle('hidden')
     screens[1].classList.add('hidden')
     screens[2].classList.add('hidden')
+    let title = document.querySelector('h2.title')
+    setTimeout(function() {
+        title.classList.remove('fade')
+        title.style.bottom = "0px"
+    },1000)
+    let h3 = document.querySelector('h3.title')
+    setTimeout(function() {
+        h3.classList.remove('fade')
+        h3.style.bottom = "70px"
+    },2000)
+    let buttons = document.querySelectorAll('.splash_button')
+    setTimeout(function() {
+        buttons[0].classList.remove('fade')
+        buttons[1].classList.remove('fade')
+        buttons[0].style.bottom = "70px"
+        buttons[1].style.bottom = "70px"
+
+    },3000)
 }
 const displayGame = (event) => {
     console.log("game page")
@@ -285,14 +303,28 @@ const changeContainerSize = () => {
     limit = screen_area / 28373
     console.log(limit)
 }
+// const hide = (event) => {
+//     event.target.classList.add('blur')
+// }
+const reveal = (event) => {
+    event.target.classList.toggle('blur')
+}
 const assignButtonListeners = () => {
     let buttons = document.querySelectorAll("button")
     //start_button
     buttons[0].addEventListener("click",displayGame)
+    buttons[0].addEventListener("mouseover",reveal)
+    buttons[0].addEventListener("mouseout",reveal)
+
     buttons[4].addEventListener("click",displayGame)
+    buttons[4].addEventListener("mouseover",reveal)
+    buttons[4].addEventListener("mouseout",reveal)
+
 
     //settings_button
     buttons[1].addEventListener("click",displaySettings)
+    buttons[1].addEventListener("mouseover",reveal)
+    buttons[1].addEventListener("mouseout",reveal)
 
     //return_button
     buttons[2].addEventListener("click",displaySplash)
@@ -318,7 +350,11 @@ const breathe = () => {
     let circle = document.createElement('div')
     circle.classList.add('breathe')
     circle.classList.add('small')
+    circle.classList.add('fade')
     document.querySelector('.breathe_container').appendChild(circle)
+    setTimeout(function() {
+        circle.classList.remove('fade')
+    },1000)
     let h3 = document.createElement('h3')
     h3.classList.add('breathe_type')
     circle.appendChild(h3)
@@ -353,14 +389,20 @@ const breathe = () => {
 }
 const startGame = () => {
     //create a bubble
-    // let bubble_area = 52*52
+
     let screen_area = bubble_container.width * bubble_container.height
     limit = Math.ceil(screen_area / 28373)
     console.log(limit)
-    // console.log(bubble_area,screen_area)
-    // let num_bubbles = screen_area/bubble_area
-    // num_bubbles /= 5
-    interval = setInterval(createBubble,1000)
+
+    let button = document.querySelector('.return_button')
+    let score = document.querySelector('.score')
+
+    setTimeout(function(){
+        button.classList.remove('fade')
+        score.classList.remove('fade')
+    },1000)
+
+    interval = setInterval(createBubble,2000)
     breathe()
 }
 const pop = (event) => {
@@ -402,7 +444,7 @@ const pop = (event) => {
     //remove from bubbles array
     bubbles.splice(bubbles.indexOf(event.target.parentElement),1)
     num_bubbles--
-    interval = setInterval(createBubble,1000)
+    // interval = setInterval(createBubble,2000)
 }
 const updateScore = () => {
     score++
@@ -413,4 +455,4 @@ const updateScore = () => {
 loadScreens()
 assignButtonListeners()
 assignWindowListener()
-displayGame()
+displaySplash()

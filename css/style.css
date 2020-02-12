@@ -1,37 +1,120 @@
 @font-face {
     font-family:'Montserrat';
-    src: url('../fonts/Montserrat-SemiboldItalic.ttf');
+    src: url(../fonts/Montserrat-SemiboldItalic.ttf);
+}
+@font-face {
+    font-family:'Krabulator';
+    src: url(../fonts/RF-Krabuler-Regular.otf)
+}
+@font-face {
+    font-family: 'Vulf Mono Code';
+    src: url(../fonts/VulfMonoCode-Regular.otf);
+}
+body {
+    overflow: hidden;
+    font-size: 30px;
+    color: white;
+}
+h2 {
+    font-size: 2em;
+}
+button {
+    font-size: .5em;
+    color: white;
 }
 .container {
     background-image: url(../images/bgi.jpg);
     -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}
+.title {
+    font-family: 'Krabulator';
+    text-align: center;
+    transition: all 1s ease;
+
+}
+h2.title {
+    position: relative;
+    bottom: -10px;
+}
+h3.title {
+    position: relative;
+    bottom: 60px;
+}
+.splash_button {
+    font-family: 'Montserrat';
+    text-align: center;
+}
+.splash_page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.splash_page button {
+    position: relative;
+    /* border: 1px solid black; */
+    width: 150px;
+    height: 50px;
+    margin: 20px;
+    bottom: 60px;
+    border-radius: 20px;
+    background-image: linear-gradient(#38A0B6, #0077C3);
+    transition: all .4s linear;
+}
+.button_collection {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.blur {
+    opacity: 0.5;
+    -webkit-filter: blur(.5px);
+    filter: blur(.5px);
 }
 .hidden {
     display: none;
 }
 .return_button {
     position: absolute;
+    width: 50px;
+    height: 50px;
+    font-size: 1.25em;
+    border-radius: 50%;
+    background-image: linear-gradient(#38A0B6, #0077C3);
+
+    z-index: 3;
+    left: 15px;
+    top: 15px;
+    /* padding: 15px; */
+    transition: all 0.5s ease;
 }
 .score {
+    font-family: 'Vulf Mono Code';
     position: absolute;
+    right: 0;
+    font-size: 1.25em;
+    padding: 15px;
+    transition: all 0.5s ease;
 }
-/* img {
-    position: relative;
-    z-index: -1;
-} */
 .bubble_container {
     width: 100vw;
+    position: relative;
     min-height: 100vh;
     overflow: hidden;
     position: relative;
     z-index: 2;
 }
-body {
-    overflow: hidden;
-}
+
 .bubble {
     position: absolute;
     width: 50px;
@@ -115,7 +198,9 @@ body {
   .slow {
     transition: all 1s linear;
   }
-
+  .fade {
+      opacity: 0%;
+  }
   .breathe_container {
     width: 100vw;
     height: 100vh;

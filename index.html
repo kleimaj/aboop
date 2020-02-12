@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
@@ -11,14 +11,17 @@
 </head>
 <body>
     <main class="container">
-        <div class="page" id="splash_page">
-            <h2>Bubble Pop</h2>
-            <button class="start_button">Start Game</button>
-            <button class="settings_button">Settings</button>
+        <div class="page splash_page" id="splash_page">
+            <h2 class = "title fade">ABOOP</h2>
+            <h3 class = "title fade">a peaceful game <br />for restoration</h3>
+            <div class = "button_collection">
+            <button class="splash_button blur fade">Start Game</button>
+            <button class="splash_button blur fade settings">Settings</button>
+            </div>
         </div>
         <div class="page" id="game_page">
-            <button class="return_button">X</button>
-            <p class="score">0</p>
+            <button class="return_button fade">X</button>
+            <p class="score fade">0</p>
             <div class="bubble_container"></div>
             <div class="breathe_container">
                 <!-- <div class="breathe small"> -->
