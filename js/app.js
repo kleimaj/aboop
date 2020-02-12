@@ -17,6 +17,7 @@ let interval
 let bubble_intervals = []
 let limit = 0
 let h3_fades = 0
+let h3_interval = 0
 /* CLASSES */
 class Bubble {
     constructor(x=15,y=15) { //max screenWidth - 100 //max screenHeight - 100
@@ -36,6 +37,12 @@ class Bubble {
         this.element = document.createElement('div')
 
         this.child = document.createElement('div')
+        // this.img = document.createElement('img')
+        // this.img.setAttribute('src',"images/bubble.png")
+        // this.img.style.width="52px"
+        // this.img.style.margin="0 auto"
+        // this.img.style.height="52px"
+        // this.child.appendChild(this.img)
         
         // this.child.style.width = "10px"
         // this.child.style.height = "10px"
@@ -245,6 +252,7 @@ const displaySplash = (event) => {
     }
     limit = 0
     h3_fades = 0
+    clearInterval(h3_interval)
     myNode = document.querySelector('.breathe_container')
     while (myNode.hasChildNodes()) {
         myNode.removeChild(myNode.firstChild)
@@ -314,9 +322,10 @@ const breathe = () => {
     let h3 = document.createElement('h3')
     h3.classList.add('breathe_type')
     circle.appendChild(h3)
+    h3_fades = 0
     // document.querySelector
     let bool = false
-    setInterval(function() {
+    h3_interval = setInterval(function() {
     circle.classList.toggle('small')
     circle.classList.toggle('large')
     if (h3_fades < 4){
