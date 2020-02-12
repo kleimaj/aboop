@@ -305,8 +305,13 @@ const pop = (event) => {
 
     updateScore()
     clearInterval(event.target.parentElement.getAttribute('data')) //stop bubble
-    let keylines = event.target.parentElement.querySelectorAll('.keyline')
     let circle = event.target
+    circle.style.width = 70+'px'
+    circle.style.height = 70+'px'
+    // circle.style.paddingLeft = '50px'
+
+    let keylines = event.target.parentElement.querySelectorAll('.keyline')
+    
     setTimeout(function() {
         keylines.forEach(function(keyline) {    
             keyline.classList.remove('hidden')
@@ -321,6 +326,7 @@ const pop = (event) => {
             keyline.classList.add('hidden')
         })
     },200)
+    
     let container = document.querySelector('.bubble_container')
     let target = event.target.parentElement
     setTimeout(function() {
