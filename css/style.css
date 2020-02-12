@@ -86,3 +86,38 @@
   .slow {
     transition: all 1s linear;
   }
+
+  .breathe_container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: -1;
+  }
+  .breathe {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    margin: 0 auto;
+  /*   border: 1px solid black; */
+    border-radius: 50%;
+    transition: all 4.5s ease-in-out;
+    background-image: linear-gradient(#38A0B6, #0077C3);
+  }
+  .breathe_type {
+    transition: 1s opacity;
+    opacity: 0%;
+  }
+  .large{
+    width: 250px;
+    height: 250px;
+    font-size: 40px;
+  }
+  .small{
+    width: 90px;
+    height: 90px;
+    font-size: 15px;
+  }
