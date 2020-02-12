@@ -9,36 +9,59 @@ let bubble_container = {
     x: 0,
     y: 0,
     width: screen.width,
-    height: screen.height
+    height: screen.height,
 }
 let bubbles = []
-
+let num_bubbles = 0
+let interval
+let bubble_intervals = []
+let bubble_idx = 0
 /* CLASSES */
 class Bubble {
     constructor(x=15,y=15) { //max screenWidth - 100 //max screenHeight - 100
         // this.x = x
         // this.y = y
+        this.width = 52 //default width and height
+        this.height = 52
+
         let coords = this.generateRandomPos()
+        // console.log(coords)
         this.x = coords[0]
         this.y = coords[1]
         this.xV = 5 * (Math.round(Math.random()) * 2 - 1)        // 5 pixels/function call
         this.yV = 5 * (Math.round(Math.random()) * 2 - 1)
 
-        this.width = 5 //default width and height
-        this.height = 5
-        this.borderRadius = '50%'
-
         //create div element and make appear
         this.element = document.createElement('div')
+
         this.child = document.createElement('div')
 
         this.appear()
+
+        this.rect = this.element.getBoundingClientRect()
+        // console.log(this.rect)
         this.child.classList.add('grow')
-        // this.move()
+        // this.child.classList.add('popout')
+        this.move()
         this.collision = false
-        setInterval(this.move.bind(this), 100)
+
+        this.moveInterval = setInterval(this.move.bind(this), 100)
+        console.log(this.moveInterval)
+        // bubble_intervals.push(this.moveInterval)
+        // this.idx = bubble_idx
+        // bubble_idx++
+        this.element.setAttribute('data',this.moveInterval)
+
         this.child.classList.remove('grow')
         bubbles.push(this)
+
+        for (let i = 0; i < 8; i++) {
+            let keyline = document.createElement('div')
+            keyline.classList.add('keyline')
+            keyline.classList.add('hidden')
+            this.element.appendChild(keyline)
+            // console.log(event.currentTarget)
+        }
 
         // console.log(bubbles)
         // console.log(this===bubbles[0])
@@ -78,21 +101,21 @@ class Bubble {
         }
 
         //check other bubbles
-        if (!this.collision) {
-            if (!this.compareOthers()) {
-            this.x += this.xV
-            this.element.style.left = this.x+"px"
-            this.y += this.yV
-            this.element.style.top = this.y+"px"
-            }
-        }
-        else {
-            this.collision=false
-            this.x += this.xV
-            this.element.style.left = this.x+"px"
-            this.y += this.yV
-            this.element.style.top = this.y+"px"
-        }
+        // if (!this.collision) {
+        //     if (!this.compareOthers()) {
+        //     this.x += this.xV
+        //     this.element.style.left = this.x+"px"
+        //     this.y += this.yV
+        //     this.element.style.top = this.y+"px"
+        //     }
+        // }
+        // else {
+        this.collision=false
+        this.x += this.xV
+        this.element.style.left = this.x+"px"
+        this.y += this.yV
+        this.element.style.top = this.y+"px"
+        // }
         
     }
     compareOthers() {
@@ -105,7 +128,7 @@ class Bubble {
                     //if this right intersects other.left
                     //change xV
                     if ((((this.y+40) > other.y) && (this.y < other.y)) && (this.x < (other.x+40) && (this.x+40) > other.x)) {
-                        console.log('vertical collision detected')
+                        // console.log('vertical collision detected')
                         this.yV *= -1
                         other.yV *= -1
                         this.xV *= -1
@@ -124,7 +147,7 @@ class Bubble {
                         ret = true
                     }
                     else if ((this.x < other.x && (this.x+40) > other.x) && (this.y < (other.y+40) && (this.y+40) > other.y)) {
-                        console.log('horizontal collision detected')
+                        // console.log('horizontal collision detected')
                         this.xV *= -1
                         other.xV *=-1
                         this.yV *= -1
@@ -153,19 +176,28 @@ class Bubble {
     generateRandomPos() {
         let x = Math.abs(Math.floor(Math.random()*bubble_container.width)-80)
         let y = Math.abs(Math.floor(Math.random()*bubble_container.height)-80)
+        this.left = x
+        this.right = x+this.width
+        this.top = y
+        this.bottom = y+this.height
         // console.log(x,y)
-        // for (let i = 0; i < bubbles.length; i++) {
-        //     //check if coordinates collide
-        //     let other = bubbles[i]
-        //     if () {
+        for (let i = 0; i < bubbles.length; i++) {
+            let other = bubbles[i]
 
-        //     }
-        //     else {
-        //         return this.generateRandomPos()
-        //     }
-        // }
+            let overlap = !(this.right < other.left || 
+                this.left > other.right || 
+                this.bottom < other.top || 
+                this.top > other.bottom)
+            // console.log(overlap)
+            if (overlap) {
+                return this.generateRandomPos()
+            }
+            else {
+                return [x,y]
+            }
+        }
 
-        // return [x,y]
+        return [x,y]
 
     }
     // collide() { //collision detection
@@ -253,23 +285,57 @@ const assignWindowListener = () => {
 
 }
 const createBubble = () => {
-    new Bubble()
+    if (num_bubbles === 6) {
+        clearInterval(interval)
+    }
+    else {
+        new Bubble()
+        num_bubbles++    
+    }
     //new Bubble(75,25)
 }
 const startGame = () => {
     //create a bubble
-    createBubble()
-    createBubble()
-    createBubble()
-    createBubble()
-    createBubble()
+    let bubble_area = 52*52
+    let screen_area = bubble_container.width * bubble_container.height
+    console.log(bubble_area,screen_area)
+    let num_bubbles = screen_area/bubble_area
+    num_bubbles /= 5
+    interval = setInterval(createBubble,1000)
+
 
 }
 const pop = (event) => {
+
     updateScore()
-    document.querySelector('.bubble_container').removeChild(event.currentTarget)
+    clearInterval(event.currentTarget.getAttribute('data')) //stop bubble
+    let keylines = event.currentTarget.querySelectorAll('.keyline')
+    let circle = event.target
+    setTimeout(function() {
+        keylines.forEach(function(keyline) {    
+            keyline.classList.remove('hidden')
+            circle.classList.add('hidden')
+            // console.log(keyline)
+        })
+    },100)
+    // console.log(keylines)
+    // disappear keylines and container entirely
+    setTimeout(function() {
+        keylines.forEach(function(keyline) {    
+            keyline.classList.add('hidden')
+        })
+    },200)
+    let container = document.querySelector('.bubble_container')
+    let target = event.currentTarget
+    setTimeout(function() {
+        container.removeChild(target)
+    },400)
+    console.log(event.currentTarget)
+    // document.querySelector('.bubble_container').removeChild(event.currentTarget)
     //remove from bubbles array
     bubbles.splice(bubbles.indexOf(event.currentTarget),1)
+    num_bubbles--
+    interval = setInterval(createBubble,1000)
 }
 const updateScore = () => {
     score++
