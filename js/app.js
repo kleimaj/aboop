@@ -47,6 +47,9 @@ class Bubble {
 
         this.moveInterval = setInterval(this.move.bind(this), 100)
         this.element.setAttribute('data',this.moveInterval)
+        this.element.style.width="30px"
+        this.element.style.height="30px"
+        
 
         this.child.classList.remove('grow')
         bubbles.push(this)
@@ -56,12 +59,7 @@ class Bubble {
             keyline.classList.add('keyline')
             keyline.classList.add('hidden')
             this.element.appendChild(keyline)
-            // console.log(event.currentTarget)
         }
-
-        // console.log(bubbles)
-        // console.log(this===bubbles[0])
-       
     }
     move() {
         // y position
@@ -92,7 +90,6 @@ class Bubble {
             this.width -= 10
             this.child.style.width=this.width+"px"
             // this.height += 15
-            
             // this.child.style.height=this.height+"px"
         }
 
@@ -213,9 +210,6 @@ class Bubble {
         this.child.style.width = this.width+"px"
         this.child.style.height = this.height+"px"
 
-        //place bubble on screen
-        // this.element.style.margin="15px"
-        //append child to bubble_container
         document.querySelector('.bubble_container').appendChild(this.element)
         this.element.appendChild(this.child)
 
@@ -306,9 +300,9 @@ const pop = (event) => {
     updateScore()
     clearInterval(event.target.parentElement.getAttribute('data')) //stop bubble
     let circle = event.target
+    let parent = circle.parentElement
     circle.style.width = 70+'px'
     circle.style.height = 70+'px'
-    // circle.style.paddingLeft = '50px'
 
     let keylines = event.target.parentElement.querySelectorAll('.keyline')
     
@@ -318,14 +312,18 @@ const pop = (event) => {
             circle.classList.add('hidden')
             // console.log(keyline)
         })
-    },100)
+    },0)
     // console.log(keylines)
     // disappear keylines and container entirely
+    setTimeout(function() {
+        parent.style.width="50px"
+        parent.style.height="50px"
+    },50)
     setTimeout(function() {
         keylines.forEach(function(keyline) {    
             keyline.classList.add('hidden')
         })
-    },200)
+    },250)
     
     let container = document.querySelector('.bubble_container')
     let target = event.target.parentElement
@@ -347,5 +345,4 @@ const updateScore = () => {
 loadScreens()
 assignButtonListeners()
 assignWindowListener()
-//for testing
 displayGame()

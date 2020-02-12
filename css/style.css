@@ -35,7 +35,7 @@
     height: 150px;
   }
 .keyline {
-    width: 2px;
+    width: 1px;
     height: 10px;
     background-color: #000;
     position: absolute;
@@ -85,7 +85,4 @@
   }
 .pop{
     animation: pop 0.3s linear 1;
-  }
-@keyframes pop{
-    50%  {transform: scale(1.2);}
   }
