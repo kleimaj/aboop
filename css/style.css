@@ -83,6 +83,6 @@
   /*   left: -10%; */
     transform: rotate(35deg)
   }
-.pop{
-    animation: pop 0.3s linear 1;
+  .slow {
+    transition: all 1s linear;
   }

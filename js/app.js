@@ -15,7 +15,7 @@ let bubbles = []
 let num_bubbles = 0
 let interval
 let bubble_intervals = []
-let bubble_idx = 0
+let limit = 0
 /* CLASSES */
 class Bubble {
     constructor(x=15,y=15) { //max screenWidth - 100 //max screenHeight - 100
@@ -35,6 +35,10 @@ class Bubble {
         this.element = document.createElement('div')
 
         this.child = document.createElement('div')
+        
+        // this.child.style.width = "10px"
+        // this.child.style.height = "10px"
+        // console.log(this.child)
 
         this.appear()
 
@@ -202,6 +206,9 @@ class Bubble {
         this.element.classList.add('bubble')
         this.child.addEventListener("click",pop)
         this.child.classList.add('bubble_child')
+        // this.child.style.transition = 'transition: all .5s linear'
+        // this.child.classList.add('slow')
+
 
         //set initial position
         this.element.style.top = this.y+"px"
@@ -209,7 +216,9 @@ class Bubble {
 
         this.child.style.width = this.width+"px"
         this.child.style.height = this.height+"px"
+        // this.child.style.transition = ''
 
+        // this.child.classList.remove('slow')
         document.querySelector('.bubble_container').appendChild(this.element)
         this.element.appendChild(this.child)
 
@@ -227,15 +236,20 @@ const loadScreens = () => {
     screens[0].classList.toggle('hidden')
 }
 const displaySplash = (event) => {
+
+    console.log('splash page')
+    const myNode = document.querySelector(".bubble_container");
+    while (myNode.hasChildNodes()) {
+        myNode.removeChild(myNode.firstChild);
+        console.log('remove')
+    }
+    limit = 0
+    num_bubbles = 0
+    bubbles = []
     screens[0].classList.remove('hidden')
     // event.target.classList.toggle('hidden')
     screens[1].classList.add('hidden')
     screens[2].classList.add('hidden')
-    console.log('splash page')
-    const myNode = document.querySelector(".bubble_container");
-    while (myNode.firstChild) {
-        myNode.removeChild(myNode.firstChild);
-    }
 }
 const displayGame = (event) => {
     console.log("game page")
@@ -254,6 +268,9 @@ const displaySettings = () => {
 const changeContainerSize = () => {
     bubble_container.width = screen.width
     bubble_container.height = screen.height
+    screen_area = bubble_container.width * bubble_container.height
+    limit = screen_area / 28373
+    console.log(limit)
 }
 const assignButtonListeners = () => {
     let buttons = document.querySelectorAll("button")
@@ -275,7 +292,7 @@ const assignWindowListener = () => {
 
 }
 const createBubble = () => {
-    if (num_bubbles === 6) {
+    if (num_bubbles >= limit) {
         clearInterval(interval)
     }
     else {
@@ -286,11 +303,13 @@ const createBubble = () => {
 }
 const startGame = () => {
     //create a bubble
-    let bubble_area = 52*52
+    // let bubble_area = 52*52
     let screen_area = bubble_container.width * bubble_container.height
-    console.log(bubble_area,screen_area)
-    let num_bubbles = screen_area/bubble_area
-    num_bubbles /= 5
+    limit = Math.ceil(screen_area / 28373)
+    console.log(limit)
+    // console.log(bubble_area,screen_area)
+    // let num_bubbles = screen_area/bubble_area
+    // num_bubbles /= 5
     interval = setInterval(createBubble,1000)
 
 
