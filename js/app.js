@@ -16,6 +16,7 @@ let num_bubbles = 0
 let interval
 let bubble_intervals = []
 let limit = 0
+let h3_fades = 0
 /* CLASSES */
 class Bubble {
     constructor(x=15,y=15) { //max screenWidth - 100 //max screenHeight - 100
@@ -238,12 +239,16 @@ const loadScreens = () => {
 const displaySplash = (event) => {
 
     console.log('splash page')
-    const myNode = document.querySelector(".bubble_container");
+    let myNode = document.querySelector(".bubble_container");
     while (myNode.hasChildNodes()) {
         myNode.removeChild(myNode.firstChild);
-        console.log('remove')
     }
     limit = 0
+    h3_fades = 0
+    myNode = document.querySelector('.breathe_container')
+    while (myNode.hasChildNodes()) {
+        myNode.removeChild(myNode.firstChild)
+    }
     num_bubbles = 0
     bubbles = []
     screens[0].classList.remove('hidden')
@@ -301,6 +306,42 @@ const createBubble = () => {
     }
     //new Bubble(75,25)
 }
+const breathe = () => {
+    let circle = document.createElement('div')
+    circle.classList.add('breathe')
+    circle.classList.add('small')
+    document.querySelector('.breathe_container').appendChild(circle)
+    let h3 = document.createElement('h3')
+    h3.classList.add('breathe_type')
+    circle.appendChild(h3)
+    // document.querySelector
+    let bool = false
+    setInterval(function() {
+    circle.classList.toggle('small')
+    circle.classList.toggle('large')
+    if (h3_fades < 4){
+        if (bool) {
+            h3.innerHTML = 'Breathe'+'<br />'+ 'Out'
+            h3.style.opacity = '0%'
+            h3.style.opacity = '100%'
+            bool = false
+        }
+        else {
+            h3.innerHTML = 'Breathe'+'<br />' +'In'
+            h3.style.opacity = '0%'
+            h3.style.opacity = '100%'
+            bool = true
+        }
+        h3_fades++
+    }
+    else {
+        h3.style.opacity="0%"
+    }
+    setTimeout(function() {
+        h3.style.opacity="0%"
+    },3500)
+    },5000)
+}
 const startGame = () => {
     //create a bubble
     // let bubble_area = 52*52
@@ -311,8 +352,7 @@ const startGame = () => {
     // let num_bubbles = screen_area/bubble_area
     // num_bubbles /= 5
     interval = setInterval(createBubble,1000)
-
-
+    breathe()
 }
 const pop = (event) => {
 

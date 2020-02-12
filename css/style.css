@@ -1,9 +1,23 @@
+@font-face {
+    font-family:'Montserrat'
+    src: url('../fonts/')
+}
 .hidden {
     display: none;
 }
+.button {
+    position: absolute;
+}
+.score {
+    position: absolute;
+}
 .bubble_container {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+}
+body {
+    overflow: hidden;
 }
 .bubble {
     /* display:inline-block; */
@@ -93,7 +107,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 70%;
     z-index: -1;
   }
   .breathe {
