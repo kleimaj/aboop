@@ -285,6 +285,8 @@ const displaySplash = (event) => {
 const displayGame = (event) => {
     console.log("game page")
     // event.target.classList.toggle('hidden')
+
+    //fade out 
     screens[0].classList.add('hidden')
     screens[2].classList.add('hidden')
     screens[1].classList.toggle('hidden')

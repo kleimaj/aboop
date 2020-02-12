@@ -147,10 +147,11 @@ h3.title {
     height: 150px;
   }
 .keyline {
-    width: 1px;
+    width: 1.5px;
     height: 10px;
     background-color: #000;
     position: absolute;
+    opacity: 30%;
     transition: all .5s linear
   }
   .keyline:nth-child(2) {
