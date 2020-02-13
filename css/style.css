@@ -23,7 +23,7 @@ button {
     color: white;
 }
 .container {
-    background-image: url(../images/bgi.jpg);
+    background-image: url(../images/default_bgi.png);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -240,4 +240,22 @@ h3.title {
     width: 90px;
     height: 90px;
     font-size: 15px;
+  }
+
+  .settings_page{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .settings_titles {
+    font-family: 'Montserrat';
+    position: relative;
+    top: 40px;
+  }
+  .theme {
+      width: 100px;
+      height: 100px;
   }
