@@ -14,10 +14,16 @@ let bubble_container = {
 let bubbles = []
 let num_bubbles = 0
 let interval
+let intervalSet = false
 let bubble_intervals = []
 let limit = 0
 let h3_fades = 0
 let h3_interval = 0
+let pop_sound = new Audio() 
+const breatheIn = new Audio('audio/breathe_in.wav')
+const breatheOut = new Audio('audio/breathe_out.wav')
+const popSounds = []
+// const bump = new Audio('audio/bump.mp3')
 /* CLASSES */
 class Bubble {
     constructor(x=15,y=15) { //max screenWidth - 100 //max screenHeight - 100
@@ -37,22 +43,17 @@ class Bubble {
         this.element = document.createElement('div')
 
         this.child = document.createElement('div')
-        // this.img = document.createElement('img')
-        // this.img.setAttribute('src',"images/bubble.png")
-        // this.img.style.width="52px"
-        // this.img.style.margin="0 auto"
-        // this.img.style.height="52px"
-        // this.child.appendChild(this.img)
-        
-        // this.child.style.width = "10px"
-        // this.child.style.height = "10px"
-        // console.log(this.child)
 
         this.appear()
 
         this.rect = this.element.getBoundingClientRect()
         // console.log(this.rect)
+        // console.log(this.child)
+        this.child.classList.add('slow')
         this.child.classList.add('grow')
+        this.child.classList.remove('slow')
+        // console.log(this.child)
+
         // this.child.classList.add('popout')
         this.move()
         this.collision = false
@@ -84,11 +85,14 @@ class Bubble {
             this.yV *= -1
             this.height -= 10
             this.child.style.height=this.height+"px"
+            // bump.play()
         }
         else if (this.y <= -5) {
             this.yV *= -1
             this.height -= 10
             this.child.style.height=this.height+"px"
+            // bump.play()
+
         }
 
         //x position
@@ -96,16 +100,20 @@ class Bubble {
             this.xV *= -1
             this.width -= 10
             this.child.style.width=this.width+"px"
+            // bump.play()
+
         }
         else if (this.x <= -10) {
             this.xV *= -1
             this.width -= 10
             this.child.style.width=this.width+"px"
+            // bump.play()
+
             // this.height += 15
             // this.child.style.height=this.height+"px"
         }
 
-        //check other bubbles
+        // check other bubbles (with collision)
         // if (!this.collision) {
         //     if (!this.compareOthers()) {
         //     this.x += this.xV
@@ -115,12 +123,19 @@ class Bubble {
         //     }
         // }
         // else {
+        // this.collision=false
+        // this.x += this.xV
+        // this.element.style.left = this.x+"px"
+        // this.y += this.yV
+        // this.element.style.top = this.y+"px"
+        // }
+
+        // without collision
         this.collision=false
         this.x += this.xV
         this.element.style.left = this.x+"px"
         this.y += this.yV
         this.element.style.top = this.y+"px"
-        // }
         
     }
     compareOthers() {
@@ -214,6 +229,7 @@ class Bubble {
         this.element.classList.add('bubble')
         this.child.addEventListener("click",pop)
         this.child.classList.add('bubble_child')
+        // this.child.classList.add('grow')
         // this.child.style.transition = 'transition: all .5s linear'
         // this.child.classList.add('slow')
 
@@ -222,8 +238,8 @@ class Bubble {
         this.element.style.top = this.y+"px"
         this.element.style.left = this.x+"px"
 
-        this.child.style.width = this.width+"px"
-        this.child.style.height = this.height+"px"
+        // this.child.style.width = this.width+"px"
+        // this.child.style.height = this.height+"px"
         // this.child.style.transition = ''
 
         // this.child.classList.remove('slow')
@@ -340,7 +356,10 @@ const assignWindowListener = () => {
 }
 const createBubble = () => {
     if (num_bubbles >= limit) {
+        // console.log(interval)
         clearInterval(interval)
+        intervalSet = false
+        // console.log(interval)
     }
     else {
         new Bubble()
@@ -363,21 +382,32 @@ const breathe = () => {
     h3_fades = 0
     // document.querySelector
     let bool = false
+    let inhale = true
     h3_interval = setInterval(function() {
     circle.classList.toggle('small')
     circle.classList.toggle('large')
+    if (inhale) {
+        breatheIn.play()
+        inhale = false
+    }
+    else {  
+        breatheOut.play()
+        inhale = true
+    }
     if (h3_fades < 4){
         if (bool) {
             h3.innerHTML = 'Breathe'+'<br />'+ 'Out'
             h3.style.opacity = '0%'
             h3.style.opacity = '100%'
             bool = false
+            // breatheOut.play()
         }
         else {
             h3.innerHTML = 'Breathe'+'<br />' +'In'
             h3.style.opacity = '0%'
             h3.style.opacity = '100%'
             bool = true
+            // breatheIn.play()
         }
         h3_fades++
     }
@@ -405,14 +435,26 @@ const startGame = () => {
     },1000)
 
     interval = setInterval(createBubble,2000)
+    intervalSet = true
     breathe()
 }
+const assignSounds = () => {
+    for (let i = 2; i < 11; i++) {
+        popSounds.push('audio/pops/sound'+i+'.mp3')
+    }
+}
+const popSound = () => {
+    pop_sound = new Audio(popSounds[Math.floor(Math.random()*9)])
+    pop_sound.play()
+}
 const pop = (event) => {
-
+    popSound()
+    // breatheIn.play()
     updateScore()
     clearInterval(event.target.parentElement.getAttribute('data')) //stop bubble
     let circle = event.target
     let parent = circle.parentElement
+    circle.classList.add('slow')
     circle.style.width = 70+'px'
     circle.style.height = 70+'px'
 
@@ -424,11 +466,12 @@ const pop = (event) => {
             circle.classList.add('hidden')
             // console.log(keyline)
         })
-    },0)
+    },50) //0
     // console.log(keylines)
     // disappear keylines and container entirely
     setTimeout(function() {
         parent.style.width="50px"
+        circle.style.backgroundImageSize = "100px"
         parent.style.height="50px"
     },50)
     setTimeout(function() {
@@ -446,7 +489,10 @@ const pop = (event) => {
     //remove from bubbles array
     bubbles.splice(bubbles.indexOf(event.target.parentElement),1)
     num_bubbles--
-    // interval = setInterval(createBubble,2000)
+    if (num_bubbles < limit && !intervalSet) {
+        interval = setInterval(createBubble,2000)
+        intervalSet = true
+    }
 }
 const updateScore = () => {
     score++
@@ -457,4 +503,5 @@ const updateScore = () => {
 loadScreens()
 assignButtonListeners()
 assignWindowListener()
-displaySplash()
+assignSounds()
+displaySettings()
