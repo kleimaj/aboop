@@ -347,7 +347,9 @@ const changeTheme = (event) => {
             // rainInterval.clearInterval()
             rainSound.pause()
        }
-       document.documentElement.style.setProperty('--theme', 'url(../'+src+')');
+    //    document.documentElement.style.setProperty('--theme', 'url(../'+src+')');
+    document.querySelector('.container').style.backgroundImage='url(./'+src+')'
+
     }  
     else {
         event.currentTarget.classList.add('selected')
@@ -365,7 +367,10 @@ const changeTheme = (event) => {
              rainSound.pause()
 
         }
-        document.documentElement.style.setProperty('--theme', 'url(../'+src+')');
+        // document.documentElement.style.setProperty('--theme', 'url(../'+src+')');
+        document.querySelector('.container').style.backgroundImage='url(./'+src+')'
+        // document.querySelector('.container').setAttribute('background-image','url(../'+src+')')
+
     }
     // event.currentTarget.classList.add('selected')
     // event.currentTarget.removeEventListener('click',changeTheme)
@@ -399,6 +404,8 @@ const changeSprite = (event) => {
         let src = event.target.firstChild.getAttribute('src')
         let root = document.documentElement
         root.style.setProperty('--bubble','url(../'+src+')')
+        // document.querySelector('.bubble_child').style.backgroundImage='url(./'+src+')'
+
      }  
      else {
         event.currentTarget.classList.add('selected')
@@ -408,6 +415,8 @@ const changeSprite = (event) => {
         let src = event.target.getAttribute('src')
         let root = document.documentElement
         root.style.setProperty('--bubble','url(../'+src+')')
+        // document.querySelector('.bubble_child').style.backgroundImage='url(./'+src+')'
+
      }
 
 }

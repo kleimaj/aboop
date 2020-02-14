@@ -1,5 +1,5 @@
 :root {
-    --theme: url(../images/default_bgi.png);
+    /* --theme: url(../images/default_bgi.png); */
     --bubble: url(../images/bubble.png) 
 }
 /* @font-face {
@@ -27,7 +27,8 @@ button {
     color: white;
 }
 .container {
-    background-image: var(--theme);
+    /* background-image: var(--theme); */
+    background-image: url(../images/default_bgi.png);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -135,6 +136,7 @@ h3.title {
     height: 5px;
     margin: 0 auto;
     background-image: var(--bubble);
+    /* background-image: url(../images/bubble.png); */
     background-size: 52px;
     background-position-x: center;
     background-position-y: center;
