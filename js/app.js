@@ -238,7 +238,9 @@ class Bubble {
         // this.child.style.transition = ''
 
         // this.child.classList.remove('slow')
-        document.querySelector('.bubble_container').appendChild(this.element)
+        let parent = document.querySelector('.bubble_container')
+        this.child.style.backgroundImage=parent.getAttribute('bubble-image')
+        parent.appendChild(this.element)
         this.element.appendChild(this.child)
 
         // change the dimensions (h & w) of the child element
@@ -357,10 +359,6 @@ const changeTheme = (event) => {
         let src = event.target.getAttribute('src')
         if (src == 'images/bggif.gif') {
             rainSound.play()
-            // rainInterval = setInterval(function(){
-            //     rainSound.play()
-            // },10)   
-         // rainSound.play()
         }
         else {
             //  clearInterval(rainInterval)
@@ -403,8 +401,9 @@ const changeSprite = (event) => {
         //reassign css variable
         let src = event.target.firstChild.getAttribute('src')
         let root = document.documentElement
-        root.style.setProperty('--bubble','url(../'+src+')')
+        // root.style.setProperty('--bubble','url(../'+src+')')
         // document.querySelector('.bubble_child').style.backgroundImage='url(./'+src+')'
+        document.querySelector('.bubble_container').setAttribute('bubble-image','url(./'+src+')')
 
      }  
      else {
@@ -414,7 +413,8 @@ const changeSprite = (event) => {
         //reassign css variable
         let src = event.target.getAttribute('src')
         let root = document.documentElement
-        root.style.setProperty('--bubble','url(../'+src+')')
+        // root.style.setProperty('--bubble','url(../'+src+')')
+        document.querySelector('.bubble_container').setAttribute('bubble-image','url(./'+src+')')
         // document.querySelector('.bubble_child').style.backgroundImage='url(./'+src+')'
 
      }
