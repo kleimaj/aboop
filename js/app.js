@@ -36,7 +36,6 @@ class Bubble {
         this.height = 52
 
         let coords = this.generateRandomPos()
-        // console.log(coords)
         this.x = coords[0]
         this.y = coords[1]
         this.xV = 5 * (Math.round(Math.random()) * 2 - 1)        // 5 pixels/function call
@@ -264,7 +263,6 @@ const loadScreens = () => {
 }
 const displaySplash = (event) => {
 
-    console.log('splash page')
     let myNode = document.querySelector(".bubble_container");
     while (myNode.hasChildNodes()) {
         myNode.removeChild(myNode.firstChild);
@@ -306,7 +304,6 @@ const displaySplash = (event) => {
     document.querySelector('.settings_page > .return_button').classList.add('hidden')
 }
 const displayGame = (event) => {
-    console.log("game page")
     // event.target.classList.toggle('hidden')
 
     //fade out 
@@ -317,7 +314,6 @@ const displayGame = (event) => {
     startGame()
 }
 const displaySettings = () => {
-    console.log("settings page")
     screens[0].classList.toggle('hidden')
     screens[2].classList.toggle('hidden')
     let button = document.querySelector('.settings_page > .return_button')
@@ -330,14 +326,11 @@ const changeContainerSize = () => {
     bubble_container.height = screen.height
     screen_area = bubble_container.width * bubble_container.height
     limit = screen_area / 28373
-    console.log(limit)
 }
 const reveal = (event) => {
     event.target.classList.toggle('blur')
 }
 const changeTheme = (event) => {
-    // console.log('theme')
-    console.log(event.target.classList)
 
     let themes = document.querySelectorAll('.theme')
     for (let theme of themes) {
@@ -350,9 +343,7 @@ const changeTheme = (event) => {
        event.target.classList.add('selected')
        event.target.removeEventListener('click',changeTheme)
        let src = event.target.firstChild.getAttribute('src')
-       console.log('src')
        if (src == 'images/bggif.gif') {
-           console.log('here')
             // rainInterval = setInterval(function(){
             //     rainSound.play()
             // },10)    
@@ -370,7 +361,6 @@ const changeTheme = (event) => {
         event.currentTarget.removeEventListener('click',changeTheme)
         let src = event.target.getAttribute('src')
         if (src == 'images/bggif.gif') {
-            console.log('here')
             rainSound.play()
             // rainInterval = setInterval(function(){
             //     rainSound.play()
@@ -382,7 +372,6 @@ const changeTheme = (event) => {
              rainSound.pause()
 
         }
-        console.log(src)
         document.documentElement.style.setProperty('--theme', 'url(../'+src+')');
     }
     // event.currentTarget.classList.add('selected')
@@ -454,7 +443,6 @@ const assignButtonListeners = () => {
     let themes = document.querySelectorAll('.theme')
     let sprites = document.querySelectorAll('.sprite')
     for (let theme of themes) {
-        console.log(theme)
         if(!theme.classList.contains('selected')) {
             theme.addEventListener('click',changeTheme)
         }
@@ -468,7 +456,6 @@ const assignButtonListeners = () => {
 const assignWindowListener = () => {
     // let window = document.querySelector('window')
     window.addEventListener('resize', changeContainerSize);
-    console.log(bubble_container.width,bubble_container.height)
 
 }
 const createBubble = () => {
@@ -541,7 +528,6 @@ const startGame = () => {
 
     let screen_area = bubble_container.width * bubble_container.height
     limit = Math.ceil(screen_area / 28373)
-    console.log(limit)
 
     let button = document.querySelector('.return_button')
     let score = document.querySelector('.score')
