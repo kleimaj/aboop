@@ -2,10 +2,10 @@
     --theme: url(../images/default_bgi.png);
     --bubble: url(../images/bubble.png) 
 }
-@font-face {
+/* @font-face {
     font-family:'Montserrat';
     src: url(../fonts/Montserrat-SemiboldItalic.ttf);
-}
+} */
 @font-face {
     font-family:'Krabulator';
     src: url(../fonts/RF-Krabuler-Regular.otf)
@@ -50,7 +50,9 @@ h3.title {
     bottom: 40px;
 }
 .splash_button {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 600;
+    font-style: italic;
     text-align: center;
 }
 .splash_page {
@@ -103,7 +105,9 @@ h3.title {
     transition: all 0.5s ease;
 }
 .score {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 600;
+    font-style: italic;
     position: absolute;
     right: 0;
     font-size: 1em;
@@ -223,7 +227,9 @@ h3.title {
   .breathe_type {
     transition: 1s opacity;
     opacity: 0%;
-    font-family: 'Montserrat';
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 600;
+    font-style: italic;
   }
   .large{
     width: 250px;
@@ -245,7 +251,9 @@ h3.title {
     align-items: center;
   }
   .settings_titles {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 600;
+    font-style: italic;
     position: relative;
     top: 40px;
   }
