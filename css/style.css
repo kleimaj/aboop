@@ -1,6 +1,6 @@
 :root {
     /* --theme: url(../images/default_bgi.png); */
-    --bubble: url(../images/bubble.png) 
+    /* --bubble: url(../images/bubble.png)  */
 }
 /* @font-face {
     font-family:'Montserrat';
@@ -327,11 +327,11 @@ h3.title {
     /* .fade {
         opacity: 0%;
     } */
-    .blur {
+    /* .blur {
         opacity: 100%;
         -webkit-filter: blur(0);
         filter: blur(0);
-    } 
+    }  */
     .theme {
         width:60px;
     }
