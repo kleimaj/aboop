@@ -320,7 +320,9 @@ const displaySettings = () => {
     console.log("settings page")
     screens[0].classList.toggle('hidden')
     screens[2].classList.toggle('hidden')
-    document.querySelector('.settings_page > .return_button').classList.remove('hidden')
+    let button = document.querySelector('.settings_page > .return_button')
+    button.classList.remove('hidden')
+    document.querySelector('.settings_page > .splash_button').classList.add('mobile_clear')
 
 }
 const changeContainerSize = () => {
@@ -610,7 +612,15 @@ const pop = (event) => {
 }
 const updateScore = () => {
     score++
-    document.querySelector('.score').textContent = score
+    if (score === 108) {
+        document.querySelector('.score').textContent = 0
+        // displaySplash()
+        score = 0
+        // document.querySelector('h3.title').innerHTML = "You've restored for the day. You've unlcoked a new Theme and Bubble. Namaste."
+    }
+    else {
+        document.querySelector('.score').textContent = score + ' / 108'
+    }
 }
 
 /* GAME LOGIC*/

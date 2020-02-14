@@ -103,11 +103,11 @@ h3.title {
     transition: all 0.5s ease;
 }
 .score {
-    font-family: 'Vulf Mono Code';
+    font-family: 'Montserrat';
     position: absolute;
     right: 0;
-    font-size: 1.25em;
-    padding: 15px;
+    font-size: 1em;
+    padding: 25px 15px;
     transition: all 0.5s ease;
 }
 .bubble_container {
