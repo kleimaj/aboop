@@ -297,6 +297,7 @@ const displaySplash = (event) => {
         buttons[1].style.bottom = "70px"
 
     },3000)
+    document.querySelector('.settings_page > .return_button').classList.add('hidden')
 }
 const displayGame = (event) => {
     console.log("game page")
@@ -313,6 +314,8 @@ const displaySettings = () => {
     console.log("settings page")
     screens[0].classList.toggle('hidden')
     screens[2].classList.toggle('hidden')
+    document.querySelector('.settings_page > .return_button').classList.remove('hidden')
+
 }
 const changeContainerSize = () => {
     bubble_container.width = screen.width
@@ -321,11 +324,48 @@ const changeContainerSize = () => {
     limit = screen_area / 28373
     console.log(limit)
 }
-// const hide = (event) => {
-//     event.target.classList.add('blur')
-// }
 const reveal = (event) => {
     event.target.classList.toggle('blur')
+}
+const changeTheme = (event) => {
+    // console.log('theme')
+    let themes = document.querySelectorAll('.theme')
+    for (let theme of themes) {
+        if (theme.classList.contains('selected')) {
+            theme.classList.remove('selected')
+            theme.addEventListener('click',changeTheme)
+        }
+    }
+    event.currentTarget.classList.add('selected')
+    event.currentTarget.removeEventListener('click',changeTheme)
+
+    let src = event.target.getAttribute('src')
+    console.log(src)
+    let root = document.documentElement
+    // console.log(root)
+    // root.style.setProperty('--theme','url(..'+src+');')
+    document.documentElement.style.setProperty('--theme', 'url(../'+src+')');
+    // console.log(root.style)
+    // console.log(getComputedStyle(document.documentElement)
+    // .getPropertyValue('--bubble'));
+
+}
+const changeSprite = (event) => {
+    // console.log('sprite')
+    let sprites = document.querySelectorAll('.sprite')
+    for (let sprite of sprites) {
+        if (sprite.classList.contains('selected')) {
+            sprite.classList.remove('selected')
+            sprite.addEventListener('click',changeSprite)
+        }
+    }
+    event.currentTarget.classList.add('selected')
+    event.currentTarget.removeEventListener('click',changeSprite)
+
+    //reassign css variable
+    let src = event.target.getAttribute('src')
+    let root = document.documentElement
+    root.style.setProperty('--bubble','url(../'+src+')')
 }
 const assignButtonListeners = () => {
     let buttons = document.querySelectorAll("button")
@@ -347,6 +387,21 @@ const assignButtonListeners = () => {
     //return_button
     buttons[2].addEventListener("click",displaySplash)
     buttons[3].addEventListener("click",displaySplash)
+
+    //assign theme_listeners
+    let themes = document.querySelectorAll('.theme')
+    let sprites = document.querySelectorAll('.sprite')
+    for (let theme of themes) {
+        console.log(theme)
+        if(!theme.classList.contains('selected')) {
+            theme.addEventListener('click',changeTheme)
+        }
+    }
+    for (let sprite of sprites) {
+        if(!sprite.classList.contains('selected')) {
+            sprite.addEventListener('click',changeSprite)
+        }
+    }
 }
 const assignWindowListener = () => {
     // let window = document.querySelector('window')
@@ -505,3 +560,4 @@ assignButtonListeners()
 assignWindowListener()
 assignSounds()
 displaySettings()
+// displaySplash()
