@@ -329,6 +329,8 @@ const reveal = (event) => {
 }
 const changeTheme = (event) => {
     // console.log('theme')
+    console.log(event.target.classList)
+
     let themes = document.querySelectorAll('.theme')
     for (let theme of themes) {
         if (theme.classList.contains('selected')) {
@@ -336,18 +338,31 @@ const changeTheme = (event) => {
             theme.addEventListener('click',changeTheme)
         }
     }
-    event.currentTarget.classList.add('selected')
-    event.currentTarget.removeEventListener('click',changeTheme)
+    if (event.target.classList.length) {
+       event.target.classList.add('selected')
+       event.target.removeEventListener('click',changeTheme)
+       let src = event.target.firstChild.getAttribute('src')
+       document.documentElement.style.setProperty('--theme', 'url(../'+src+')');
+    }  
+    else {
+        event.currentTarget.classList.add('selected')
+        event.currentTarget.removeEventListener('click',changeTheme)
+        let src = event.target.getAttribute('src')
+        console.log(src)
+        document.documentElement.style.setProperty('--theme', 'url(../'+src+')');
+    }
+    // event.currentTarget.classList.add('selected')
+    // event.currentTarget.removeEventListener('click',changeTheme)
 
-    let src = event.target.getAttribute('src')
-    console.log(src)
-    let root = document.documentElement
-    // console.log(root)
-    // root.style.setProperty('--theme','url(..'+src+');')
-    document.documentElement.style.setProperty('--theme', 'url(../'+src+')');
-    // console.log(root.style)
-    // console.log(getComputedStyle(document.documentElement)
-    // .getPropertyValue('--bubble'));
+    // let src = event.target.getAttribute('src')
+    // console.log(src)
+    // let root = document.documentElement
+    // // console.log(root)
+    // // root.style.setProperty('--theme','url(..'+src+');')
+    // document.documentElement.style.setProperty('--theme', 'url(../'+src+')');
+    // // console.log(root.style)
+    // // console.log(getComputedStyle(document.documentElement)
+    // // .getPropertyValue('--bubble'));
 
 }
 const changeSprite = (event) => {
@@ -359,13 +374,26 @@ const changeSprite = (event) => {
             sprite.addEventListener('click',changeSprite)
         }
     }
-    event.currentTarget.classList.add('selected')
-    event.currentTarget.removeEventListener('click',changeSprite)
 
-    //reassign css variable
-    let src = event.target.getAttribute('src')
-    let root = document.documentElement
-    root.style.setProperty('--bubble','url(../'+src+')')
+    if (event.target.classList.length) {
+        event.target.classList.add('selected')
+        event.target.removeEventListener('click',changeSprite)
+    
+        //reassign css variable
+        let src = event.target.firstChild.getAttribute('src')
+        let root = document.documentElement
+        root.style.setProperty('--bubble','url(../'+src+')')
+     }  
+     else {
+        event.currentTarget.classList.add('selected')
+        event.currentTarget.removeEventListener('click',changeSprite)
+    
+        //reassign css variable
+        let src = event.target.getAttribute('src')
+        let root = document.documentElement
+        root.style.setProperty('--bubble','url(../'+src+')')
+     }
+
 }
 const assignButtonListeners = () => {
     let buttons = document.querySelectorAll("button")
