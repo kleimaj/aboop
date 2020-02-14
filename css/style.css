@@ -47,7 +47,7 @@ h2.title {
 }
 h3.title {
     position: relative;
-    bottom: 60px;
+    bottom: 40px;
 }
 .splash_button {
     font-family: 'Montserrat';
@@ -332,6 +332,12 @@ h3.title {
         -webkit-filter: blur(.5px);
         filter: blur(.5px);
     } */
+    .theme {
+        width:60px;
+    }
+    .theme img {
+        width: 50px;
+    }
     .mobile_clear {
         opacity:100%;
     }

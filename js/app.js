@@ -23,8 +23,9 @@ let pop_sound = new Audio()
 const breatheIn = new Audio('audio/breathe_in.wav')
 const breatheOut = new Audio('audio/breathe_out.wav')
 const popSounds = []
-// const rainInterval
-const rainSound = new Audio('audio/rain.mp3')
+let rainInterval = 0;
+let rainSound = new Audio('audio/rain.wav')
+rainSound.loop=true
 // const bump = new Audio('audio/bump.mp3')
 /* CLASSES */
 class Bubble {
@@ -289,7 +290,7 @@ const displaySplash = (event) => {
     let h3 = document.querySelector('h3.title')
     setTimeout(function() {
         h3.classList.remove('fade')
-        h3.style.bottom = "70px"
+        h3.style.bottom = "60px"
     },2000)
     let buttons = document.querySelectorAll('.splash_button')
     setTimeout(function() {
@@ -347,8 +348,18 @@ const changeTheme = (event) => {
        event.target.classList.add('selected')
        event.target.removeEventListener('click',changeTheme)
        let src = event.target.firstChild.getAttribute('src')
-       if (src === 'images/rangif.gif') {
-
+       console.log('src')
+       if (src == 'images/bggif.gif') {
+           console.log('here')
+            // rainInterval = setInterval(function(){
+            //     rainSound.play()
+            // },10)    
+            rainSound.play()
+        // rainSound.play()
+       }
+       else {
+            // rainInterval.clearInterval()
+            rainSound.pause()
        }
        document.documentElement.style.setProperty('--theme', 'url(../'+src+')');
     }  
@@ -356,6 +367,19 @@ const changeTheme = (event) => {
         event.currentTarget.classList.add('selected')
         event.currentTarget.removeEventListener('click',changeTheme)
         let src = event.target.getAttribute('src')
+        if (src == 'images/bggif.gif') {
+            console.log('here')
+            rainSound.play()
+            // rainInterval = setInterval(function(){
+            //     rainSound.play()
+            // },10)   
+         // rainSound.play()
+        }
+        else {
+            //  clearInterval(rainInterval)
+             rainSound.pause()
+
+        }
         console.log(src)
         document.documentElement.style.setProperty('--theme', 'url(../'+src+')');
     }
