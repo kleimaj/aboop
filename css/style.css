@@ -135,8 +135,8 @@ h3.title {
     width: 5px;
     height: 5px;
     margin: 0 auto;
-    background-image: var(--bubble);
-    /* background-image: url(../images/bubble.png); */
+    /* background-image: var(--bubble); */
+    background-image: url(../images/bubble.png);
     background-size: 52px;
     background-position-x: center;
     background-position-y: center;
