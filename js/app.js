@@ -26,12 +26,10 @@ const popSounds = []
 let rainInterval = 0;
 let rainSound = new Audio('audio/rain.wav')
 rainSound.loop=true
-// const bump = new Audio('audio/bump.mp3')
+
 /* CLASSES */
 class Bubble {
-    constructor(x=15,y=15) { //max screenWidth - 100 //max screenHeight - 100
-        // this.x = x
-        // this.y = y
+    constructor() {
         this.width = 52 //default width and height
         this.height = 52
 
@@ -222,11 +220,6 @@ class Bubble {
         return [x,y]
 
     }
-    // collide() { //collision detection
-    //     if (this.x == bubble_container.width-5 || this.x == 0) {
-
-    //     }
-    // }
     appear() {
         this.element.classList.add('bubble')
         this.child.addEventListener("click",pop)
