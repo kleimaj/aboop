@@ -323,6 +323,19 @@ h3.title {
     position: relative;
     top: -50px;
 }
+@media (max-width: 700px) {
+    /* .fade {
+        opacity: 0%;
+    }
+    .blur {
+        opacity: 100%;
+        -webkit-filter: blur(.5px);
+        filter: blur(.5px);
+    } */
+    .mobile_clear {
+        opacity:100%;
+    }
+}
 
 @media (min-width: 700px) {
     body{

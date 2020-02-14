@@ -23,6 +23,8 @@ let pop_sound = new Audio()
 const breatheIn = new Audio('audio/breathe_in.wav')
 const breatheOut = new Audio('audio/breathe_out.wav')
 const popSounds = []
+// const rainInterval
+const rainSound = new Audio('audio/rain.mp3')
 // const bump = new Audio('audio/bump.mp3')
 /* CLASSES */
 class Bubble {
@@ -293,6 +295,9 @@ const displaySplash = (event) => {
     setTimeout(function() {
         buttons[0].classList.remove('fade')
         buttons[1].classList.remove('fade')
+        buttons[0].classList.add('mobile_clear')
+        buttons[1].classList.add('mobile_clear')
+
         buttons[0].style.bottom = "70px"
         buttons[1].style.bottom = "70px"
 
@@ -342,6 +347,9 @@ const changeTheme = (event) => {
        event.target.classList.add('selected')
        event.target.removeEventListener('click',changeTheme)
        let src = event.target.firstChild.getAttribute('src')
+       if (src === 'images/rangif.gif') {
+
+       }
        document.documentElement.style.setProperty('--theme', 'url(../'+src+')');
     }  
     else {
@@ -532,7 +540,6 @@ const popSound = () => {
 }
 const pop = (event) => {
     popSound()
-    // breatheIn.play()
     updateScore()
     clearInterval(event.target.parentElement.getAttribute('data')) //stop bubble
     let circle = event.target
@@ -550,7 +557,7 @@ const pop = (event) => {
             // console.log(keyline)
         })
     },50) //0
-    // console.log(keylines)
+
     // disappear keylines and container entirely
     setTimeout(function() {
         parent.style.width="50px"
