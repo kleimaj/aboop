@@ -254,8 +254,8 @@ h3.title {
   }
   .settings_titles {
     font-family: 'Montserrat',sans-serif;
-    font-weight: 600;
-    font-style: italic;
+    font-weight: bold;
+    /* font-style: italic; */
     position: relative;
     top: 40px;
   }

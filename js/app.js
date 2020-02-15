@@ -291,6 +291,12 @@ const displaySplash = (event) => {
         buttons[1].classList.remove('fade')
         buttons[0].classList.add('mobile_clear')
         buttons[1].classList.add('mobile_clear')
+        let query = Modernizr.mq('(max-width: 700px)');
+        if (query) {
+            // the browser window is smaller than 700px
+            buttons[0].style.opacity="100%"
+            buttons[1].style.opacity="100%"
+        }
 
         buttons[0].style.bottom = "70px"
         buttons[1].style.bottom = "70px"
@@ -314,6 +320,11 @@ const displaySettings = () => {
     let button = document.querySelector('.settings_page > .return_button')
     button.classList.remove('hidden')
     document.querySelector('.settings_page > .splash_button').classList.add('mobile_clear')
+    let query = Modernizr.mq('(max-width: 700px)');
+    if (query) {
+        // the browser window is smaller than 700px
+        document.querySelector('.settings_page > .splash_button').style.opacity="100%"
+    }
 
 }
 const changeContainerSize = () => {
@@ -454,6 +465,14 @@ const assignButtonListeners = () => {
             sprite.addEventListener('click',changeSprite)
         }
     }
+    // console.log(new Modernizr())
+    // let query = Modernizr.mq('(max-width: 700px)');
+    // if (query) {
+    //   // the browser window is smaler than 700px
+    //     for (let button of buttons) {
+    //         button.style.opacity="100%"
+    //     }
+    // }
 }
 const assignWindowListener = () => {
     // let window = document.querySelector('window')

@@ -60,7 +60,19 @@ The branding concept behind the game was something of a result of two main ideas
 
 <hr>
 
-I went ahead with my newfound sense of direction and began crafting higher fidelity wireframes. I love using Sketch and Adobe Xd... so this process was utterly fun and a way to allow me to utilize my creative process on a project that had started off so logically complex.
+## The Typeface and Font Families
+
+Krabulator Typeface is a Russian type that is very relaxing and playful to look at... fit the theme of my web application nicely
+
+For other elements of the game I used Montserrat from Google Fonts (which pairs very well with Krabulator)
+
+<hr>
+
+![Typeface](images/Krabulator.png)
+
+<hr>
+
+I went ahead with my newfound sense of direction and began crafting higher fidelity wireframes. I love using Sketch and Adobe Xd... so this process was utterly fun and a way to allow me to utilize my creativity on a project that had started off so logically complex.
 
 <hr>
 
