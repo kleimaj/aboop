@@ -295,7 +295,10 @@ const displaySplash = (event) => {
         if (query) {
             // the browser window is smaller than 700px
             buttons[0].style.opacity="100%"
+            buttons[0].classList.remove('blur')
             buttons[1].style.opacity="100%"
+            buttons[1].classList.remove('blur')
+
         }
 
         buttons[0].style.bottom = "70px"
@@ -324,6 +327,8 @@ const displaySettings = () => {
     if (query) {
         // the browser window is smaller than 700px
         document.querySelector('.settings_page > .splash_button').style.opacity="100%"
+        document.querySelector('.settings_page > .splash_button').classList.remove('blur')
+
     }
 
 }
