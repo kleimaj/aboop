@@ -85,8 +85,8 @@ h3.title {
 }
 .blur {
     opacity: 0.5;
-    -webkit-filter: blur(.5px);
-    filter: blur(.5px);
+    /* -webkit-filter: blur(.5px); */
+    /* filter: blur(.5px); */
 }
 .hidden {
     display: none;
