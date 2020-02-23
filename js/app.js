@@ -624,15 +624,15 @@ const pop = (event) => {
 }
 const updateScore = () => {
     score++
-    if (score === 108) {
+    //if (score === 108) {
         document.querySelector('.score').textContent = 0
         // displaySplash()
-        score = 0
+        // score = 0
         // document.querySelector('h3.title').innerHTML = "You've restored for the day. You've unlcoked a new Theme and Bubble. Namaste."
-    }
-    else {
-        document.querySelector('.score').textContent = score + ' / 108'
-    }
+    //}
+    //else {
+        document.querySelector('.score').textContent = score
+    //}
 }
 
 /* GAME LOGIC*/
