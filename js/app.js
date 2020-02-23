@@ -543,6 +543,7 @@ const breathe = () => {
     }
     else {
         h3.style.opacity="0%"
+        h3.innerHTML= ''
     }
     setTimeout(function() {
         h3.style.opacity="0%"
